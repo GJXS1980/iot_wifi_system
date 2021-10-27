@@ -1,0 +1,5 @@
+{
+  "ProductKey": "a1KEMZ8ZAov",
+  "DeviceName": "HG-PcHost",
+  "DeviceSecret": "f8a27072944d2658227fb635b61108ea"
+}
