@@ -1,4 +1,15 @@
-#1. 主机连上网络，可以任意网络
+1.生成python的动态链接库
+在scripts下面运行：
 
-#2. 运行节点 rosrun iot_wifi_system IOT_WIFI_Node
+```
+python3 setup.py build_ext --inplace
+```
 
+2.生成deb
+在castlex_bringup下面运行：
+
+```
+bloom-generate rosdebian --os-name ubuntu --ros-distro melodic
+
+fakeroot debian/rules binary
+```

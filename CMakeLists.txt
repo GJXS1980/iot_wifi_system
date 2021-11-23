@@ -66,13 +66,16 @@ install(TARGETS IOT_WIFI_Node IOT_ARV_Node
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
- install(FILES
- launch/castlex_iot.launch
- launch/castlex_iot_device.launch
-   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
- )
+# install(FILES
+# launch/castlex_iot.launch
+# launch/castlex_iot_device.launch
+#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+# )
 
-
+install(
+  DIRECTORY launch
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
 
 
 
