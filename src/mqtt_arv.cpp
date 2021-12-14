@@ -353,8 +353,11 @@ void  Control_Lighting_Callback( const std_msgs::Int32::ConstPtr& cmd)
 {
                 char *send_data = NULL;
                 cJSON *root = cJSON_CreateObject();
+                
                 cJSON_AddNumberToObject(root,"lighting_1",(cmd->data>>0)&0x01);
+
  		cJSON_AddNumberToObject(root,"lighting_2",(cmd->data>>1)&0x01);
+                
                 cJSON_AddNumberToObject(root,"lighting_3",(cmd->data>>2)&0x01);
 
 		send_data =cJSON_PrintUnformatted(root);    		
