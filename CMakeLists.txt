@@ -53,14 +53,14 @@ include_directories(
 
 add_executable(IOT_WIFI_Node src/mqtt_arv.cpp src/cJSON.cpp ${IOTLIDAR_SDK_SRC})
 target_link_libraries(IOT_WIFI_Node ${catkin_LIBRARIES})
-add_executable(IOT_ARV_Node src/iot_arv.cpp src/cJSON.cpp ${IOTLIDAR_SDK_SRC})
-target_link_libraries(IOT_ARV_Node ${catkin_LIBRARIES})
+add_executable(CASTLEX_IOT_Node src/castlex_iot.cpp src/cJSON.cpp ${IOTLIDAR_SDK_SRC})
+target_link_libraries(CASTLEX_IOT_Node ${catkin_LIBRARIES})
 
 install(DIRECTORY include/${PROJECT_NAME}/
     DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
 )
 
-install(TARGETS IOT_WIFI_Node IOT_ARV_Node
+install(TARGETS IOT_WIFI_Node CASTLEX_IOT_Node
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

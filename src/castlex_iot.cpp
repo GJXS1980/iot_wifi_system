@@ -658,11 +658,13 @@ void signal_handler(int signum)
 
 int main(int argc, char *argv[])
 {
+
    ros::init(argc, argv, "IOT_WIFI_Node");	
    ros::NodeHandle n;           //创建句柄
     ros::NodeHandle node("~");
     std::string product_key_param, device_name_param, device_secret_param, host_param, sub_topic_param;
-
+    // 定义窗帘复位值类型
+    std_msgs::Int32 Trashcan_Reset_data;
 
 //控制IOT模块的相关话题
    ros::Subscriber Cmd_Trashcan_Sub = n.subscribe("/Trashcan_CMD_Topic", 10, &Control_Trashcan_Callback);
@@ -690,6 +692,10 @@ int main(int argc, char *argv[])
         Warehouse_pub 	= n.advertise<std_msgs::Int32>("/Warehouse_State", 10);
         Gateway_pub 	= n.advertise<std_msgs::Int32>("/Gateway_State", 10);
 	Elevator_floor_pub = n.advertise<std_msgs::Int32>("/Elevator_floor_State", 10);		
+	// 窗帘复位
+	ros::Publisher Trashcan_Reset_pub = n.advertise<std_msgs::Int32>("/Trashcan_RESET_Topic", 10);		
+
+
 
     int32_t     res = STATE_SUCCESS;
 
@@ -818,9 +824,14 @@ int main(int argc, char *argv[])
 
   // ros::Rate loop_rate(200);
     int cnt = 0;
+    
+    // 默认开机复位窗帘
+    Trashcan_Reset_data.data = 1;
+    Trashcan_Reset_pub.publish(Trashcan_Reset_data);
+
     while (ros::ok())
     {
-	if(cnt%5 == 0)
+	if(cnt%3 == 0)
        		Update_Iot_State(NULL);  //发布话题每个物联网模块的状态信息
                           
        	sleep(1);
