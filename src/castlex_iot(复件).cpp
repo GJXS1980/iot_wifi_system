@@ -379,15 +379,7 @@ void  Control_Trashcan_bar_Callback( const std_msgs::Int32::ConstPtr& cmd)
  		Update_Iot_State(NULL);
 }
 
-/*             3bit（111） 控制3个灯 （321）
-                关闭所有灯： 000(0) 
-                灯1：
-                        开001(1)  关110(6)
-                灯2：
-                        开010(2)  关101(5)
-                灯3：
-                        开100(4)  关011(3)
-                打开所有灯：111(7)              */
+//3bit 控制3个灯 1 2 4 
 void  Control_Lighting_Callback( const std_msgs::Int32::ConstPtr& cmd)
 {
                 ros::NodeHandle node("~");
@@ -398,43 +390,9 @@ void  Control_Lighting_Callback( const std_msgs::Int32::ConstPtr& cmd)
 
                 char *send_data = NULL;
                 cJSON *root = cJSON_CreateObject();
-
-                //  关所有的灯
-                if(cmd->data == 0){
-                        cJSON_AddNumberToObject(root,"lighting_1", 0);
- 		        cJSON_AddNumberToObject(root,"lighting_2", 0);
-                        cJSON_AddNumberToObject(root,"lighting_3", 0);
-                }
-                //  开所有的灯
-                else if(cmd->data == 7){
-                        cJSON_AddNumberToObject(root,"lighting_1", 1);
- 		        cJSON_AddNumberToObject(root,"lighting_2", 1);
-                        cJSON_AddNumberToObject(root,"lighting_3", 1);
-                }
-                //  开灯1
-                else if(cmd->data == 1){
-                        cJSON_AddNumberToObject(root,"lighting_1", 1);
-                }
-                //  关灯1
-                else if(cmd->data == 6){
-                        cJSON_AddNumberToObject(root,"lighting_1", 0);
-                }
-                //  开灯2
-                else if(cmd->data == 2){
-                        cJSON_AddNumberToObject(root,"lighting_2", 1);
-                }
-                //  关灯2
-                else if(cmd->data == 5){
-                        cJSON_AddNumberToObject(root,"lighting_2", 0);
-                }
-               //  开灯3
-                else if(cmd->data == 4){
-                        cJSON_AddNumberToObject(root,"lighting_3", 1);
-                }
-               //  关灯3
-                else if(cmd->data == 3){
-                        cJSON_AddNumberToObject(root,"lighting_3", 0);
-                }
+                cJSON_AddNumberToObject(root,"lighting_1",(cmd->data>>0)&0x01);
+ 		cJSON_AddNumberToObject(root,"lighting_2",(cmd->data>>1)&0x01);
+                cJSON_AddNumberToObject(root,"lighting_3",(cmd->data>>2)&0x01);
 
 		send_data =cJSON_PrintUnformatted(root);    		
                 if(send_data != NULL)
@@ -542,11 +500,7 @@ void Update_IOT_Callback ( const std_msgs::Int32::ConstPtr& cmd)
 
 }
 
-/*             2bit（11） 控制2个门铃 （21）
-                关闭所有灯： 000(0) 
-                按门铃1：01(1)  
-                按门铃2：10(2)  
-                按所有门铃：11(3)              */
+//2bit 控制
 void  Control_Door_Callback( const std_msgs::Int32::ConstPtr& cmd)
 {
                 ros::NodeHandle node("~");
@@ -557,21 +511,9 @@ void  Control_Door_Callback( const std_msgs::Int32::ConstPtr& cmd)
 
                 char *send_data = NULL;
                 cJSON *root = cJSON_CreateObject();
-
-                //  按所有的门铃
-                if(cmd->data == 3){
-                        cJSON_AddNumberToObject(root,"door_1", 1);
- 		        cJSON_AddNumberToObject(root,"door_2", 1);
-                }
-                //  按门铃1
-                else if(cmd->data == 1){
-                        cJSON_AddNumberToObject(root,"door_1", 1);
-                }
-                //  按门铃2
-                else if(cmd->data == 2){
-                        cJSON_AddNumberToObject(root,"door_2", 1);
-                }
-
+                
+                cJSON_AddNumberToObject(root,"door_1",(cmd->data>>0)&0X01);
+ 		cJSON_AddNumberToObject(root,"door_2",(cmd->data>>1)&0X01);
                 send_data =  cJSON_PrintUnformatted(root);     
 
                   printf("send_data:%s\n",send_data);
