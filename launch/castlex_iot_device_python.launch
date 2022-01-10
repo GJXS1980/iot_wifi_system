@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<launch>
+
+    <!--打开物联网设备-->
+    <node pkg = "iot_wifi_system" type = "robot_iot.py" name = "robot_iot" output="screen">
+		
+	<param name="config_path" value="$(find iot_wifi_system)/params/device_config.ini" />
+
+    </node>
+
+</launch>
