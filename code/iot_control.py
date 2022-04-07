@@ -25,8 +25,8 @@ import time
 class IOT_CONTROL:
     def __init__(self):
         rospy.init_node("iot_control_node")
-        self.access_key_id = 'LTAI5tLN8H3vHJ6soCohqnzF'
-        self.access_key_secret = 'RUPl41wQUNUTpNecp06X6XwIwczGZe'
+        self.access_key_id = 'LTAI5tSMqhMTVP3gLbbs11MP'
+        self.access_key_secret = '8iqEsbm29B0qbIrxLqbPg41I3wJ81s'
         self.region_id = 'cn-shanghai'
         # 构建一个阿里云客户端，用于发起请求。
         self.credentials = AccessKeyCredential(self.access_key_id, self.access_key_secret)
